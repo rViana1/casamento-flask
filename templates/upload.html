@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Partilha as tuas fotos!</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+      margin: 0;
+      padding: 0 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      color: #333;
+    }
+    h2 {
+      text-align: center;
+      margin-top: 3rem;
+      margin-bottom: 2rem;
+      font-size: 1.8rem;
+      color: #4b2e83;
+      text-shadow: 1px 1px 3px rgba(255,255,255,0.7);
+    }
+    form {
+      width: 100%;
+      max-width: 400px;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    input[type="file"] {
+      border: 2px dashed #4b2e83;
+      border-radius: 8px;
+      padding: 1rem;
+      cursor: pointer;
+      font-size: 1rem;
+      background: #fafafa;
+      transition: background 0.3s ease;
+    }
+    input[type="file"]:hover {
+      background: #f0e6fc;
+    }
+    button {
+      background-color: #4b2e83;
+      color: white;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      padding: 1rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(75,46,131,0.5);
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #3a2266;
+    }
+    button#add-more {
+      background-color: #9a7ed6;
+      box-shadow: 0 4px 8px rgba(154,126,214,0.5);
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      padding: 1rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      display: none;
+      margin-top: 1rem;
+    }
+    button#add-more:hover {
+      background-color: #b39ddb;
+    }
+    #success-message {
+      max-width: 400px;
+      margin: 2rem auto;
+      background: #4CAF50;
+      color: #fff;
+      padding: 1rem 1.5rem;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+    .show {
+      display: block;
+    }
+    .hide {
+      display: none;
+    }
+    @media (max-width: 400px) {
+      h2 {
+        font-size: 1.4rem;
+        margin-top: 2rem;
+      }
+      form {
+        padding: 1.5rem;
+      }
+      button {
+        font-size: 1rem;
+        padding: 0.8rem;
+      }
+      button#add-more {
+        font-size: 1rem;
+        padding: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="success-message" class="{% if num_files and num_files > 0 %}show{% else %}hide{% endif %}">
+    Upload realizado com sucesso! 🎉 {{ num_files }} ficheiro(s) carregado(s).
+  </div>
+  <h2>Carrega aqui as tuas fotos do casamento 📸</h2>
+  <form method="POST" action="/upload" enctype="multipart/form-data" id="upload-form">
+    <input type="file" name="file" multiple required accept="image/*,video/*">
+    <button type="submit">Enviar</button>
+  </form>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const message = document.getElementById('success-message');
+      if (message && message.classList.contains('show')) {
+        setTimeout(() => {
+          message.classList.remove('show');
+          message.classList.add('hide');
+        }, 5000);
+      }
+    });
+  </script>
+</body>
+</html>
